@@ -19,9 +19,12 @@ namespace TagCloseRequest {
 }
 
 export function activate(context: ExtensionContext) {
-    let serverModule = context.asAbsolutePath(
-        path.join('./', 'node_modules', 'svelte-language-server', 'bin', 'server.js'),
-    );
+    console.log('CHANGED! CLIENT!!')
+    
+    let serverModule = "C:/Users/john/.vscode/extensions/jamesbirtles.svelte-vscode-0.9.3/node_modules/svelte-language-server/bin/server.js"
+    // let serverModule = context.asAbsolutePath(
+    //     path.join('./', 'node_modules', 'svelte-language-server', 'bin', 'server.js'),
+    // );
 
     let debugOptions = { execArgv: ['--nolazy', '--inspect=6009'] };
     let serverOptions: ServerOptions = {
@@ -43,8 +46,10 @@ export function activate(context: ExtensionContext) {
         revealOutputChannelOn: RevealOutputChannelOn.Never,
         synchronize: {
             configurationSection: ['svelte', 'html'],
+            fileEvents: workspace.createFileSystemWatcher('**/.svelte')
         },
     };
+    console.log('i updated')
 
     let ls = createLanguageServer(serverOptions, clientOptions);
     context.subscriptions.push(ls.start());
